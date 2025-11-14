@@ -40,8 +40,8 @@ echo "=== Enabling multilib repository ==="
 if grep -q "^\[multilib\]" /etc/pacman.conf; then
     echo "Multilib already enabled"
 else
-    # Uncomment [multilib] section
-    sed -i '/^\[multilib\]/,/^Include/ s/^#//' /etc/pacman.conf
+    # Uncomment [multilib] section - need to uncomment both lines
+    sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf
     echo "Multilib repository enabled"
 fi
 
@@ -266,4 +266,4 @@ echo "Auto-suspend:      6 minutes (GNOME)"
 echo "========================================"
 echo ""
 echo "=== Installation Complete! ==="
-echo ""
+echo "You can now exit chroot and reboot the system."
