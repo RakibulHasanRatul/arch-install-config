@@ -142,19 +142,8 @@ echo "  - Kernel log level: 3 (errors + warnings)"
 ## Install and configure GRUB
 echo ""
 echo "=== Installing GRUB bootloader (UEFI) ==="
-
-# Prompt for target device
-while true; do
-    read -p "Enter target device for GRUB (e.g., /dev/sda, /dev/nvme0n1): " grub_device
-    if [ ! -b "$grub_device" ]; then
-        echo "Error: $grub_device is not a valid block device!"
-        continue
-    fi
-    break
-done
-
 # Install GRUB for UEFI
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --boot-directory=/boot --bootloader-id=ArchLinux
 
 # Generate GRUB config
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -171,26 +160,24 @@ echo ""
 echo "=== Installing additional packages ==="
 
 # Install the desired tools
-echo "Installing essential tools..."
-pacman -S --noconfirm bat starship wget curl wl-clipboard xclip htop git ripgrep bc noto-fonts-cjk noto-fonts-extra
+echo "Installing essential tools & libraries"
+pacman -S --noconfirm bat starship wget curl wl-clipboard xclip htop git ripgrep bc noto-fonts-cjk noto-fonts-extra lib32-vulkan-radeon
 
 # Install dev tools
-echo "Installing development tools..."
+echo "Installing development tools"
 pacman -S --noconfirm base-devel gcc npm pnpm cargo python python-pip uv lazygit tmux
 
 # Install graphical interface
-echo "Installing GNOME desktop environment and applications..."
+echo "Installing GNOME desktop environment and applications"
 pacman -S --noconfirm gnome-shell gnome-control-center gdm gnome-tweaks gnome-shell-extensions ptyxis kitty steam
 
 # Install paru (AUR helper - simpler than yay)
 echo ""
 echo "=== Installing paru (AUR helper) ==="
 cd /tmp
-sudo -u $username bash << 'EOFPARU'
 git clone https://aur.archlinux.org/paru.git
 cd paru
-makepkg -si --noconfirm
-EOFPARU
+sudo -u $username bash makepkg -si --noconfirm
 cd /
 echo "paru installed"
 
