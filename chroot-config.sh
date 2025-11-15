@@ -7,10 +7,6 @@ echo "=== Arch Linux Post-Install Configuration ==="
 echo "Running inside chroot environment"
 echo ""
 
-# Install the desired tools
-echo "Installing essential tools & libraries"
-pacman -S --noconfirm bat starship wget curl wl-clipboard xclip htop git ripgrep bc noto-fonts-cjk noto-fonts-extra lib32-vulkan-radeon networkmanager sudo curl git fish less
-
 ## Set timezone
 echo "=== Setting timezone ==="
 ln -sf /usr/share/zoneinfo/Asia/Dhaka /etc/localtime
@@ -51,6 +47,10 @@ fi
 
 # Update package database
 pacman -Sy
+
+# Install the desired tools
+echo "Installing essential tools & libraries"
+pacman -S --noconfirm bat starship wget curl wl-clipboard xclip htop git ripgrep bc noto-fonts-cjk noto-fonts-extra lib32-vulkan-radeon
 
 ## Configure sudo with pwfeedback
 echo ""

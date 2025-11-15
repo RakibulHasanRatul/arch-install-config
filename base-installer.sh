@@ -587,7 +587,7 @@ done
 ## install the base system & some desired packages
 echo ""
 echo "=== Installing base system ==="
-pacstrap -K /mnt base linux linux-firmware btrfs-progs efibootmgr nvim grub
+pacstrap -K /mnt base linux linux-firmware btrfs-progs efibootmgr nvim grub git curl networkmanager sudo fish less
 
 ## generate fstab
 echo "=== Generating fstab ==="
