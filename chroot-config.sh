@@ -82,6 +82,16 @@ passwd "$username"
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 echo "User $username added to wheel group with sudo privileges"
 
+# Grant passwordless sudo for pacman to allow unattended AUR helper installations
+echo ""
+echo "=== Configuring sudo for unattended installation ==="
+cat > "/etc/sudoers.d/10-$username-pacman" << EOF
+# Allow user $username to install packages with pacman without a password
+$username ALL=(ALL) NOPASSWD: /usr/bin/pacman
+EOF
+chmod 440 "/etc/sudoers.d/10-$username-pacman"
+echo "User $username can now run 'sudo pacman' without a password."
+
 ## Configure GRUB kernel parameters
 echo ""
 echo "=== Configuring GRUB kernel parameters ==="
@@ -169,16 +179,22 @@ pacman -S --noconfirm base-devel gcc npm pnpm cargo python python-pip uv lazygit
 
 # Install graphical interface
 echo "Installing GNOME desktop environment and applications"
-pacman -S --noconfirm gnome-shell gnome-control-center gdm gnome-tweaks gnome-shell-extensions ptyxis kitty steam
+pacman -S --noconfirm evince file-roller gdm gnome-backgrounds gnome-calculator gnome-characters gnome-control-center gnome-keyring gnome-session gnome-shell gnome-shell-extensions gnome-system-monitor gnome-tweaks gvfs loupe nautilus sushi xdg-desktop-portal-gnome xdg-user-dirs-gtk ptyxis kitty steam
 
 # Install paru (AUR helper - simpler than yay)
 echo ""
 echo "=== Installing paru (AUR helper) ==="
-cd /tmp
-git clone https://aur.archlinux.org/paru.git
-cd paru
-sudo -u $username bash makepkg -si --noconfirm
-cd /
+# The entire process of cloning and building is done as the non-root user
+# to avoid permission issues and follow best practices for makepkg.
+sudo -u "$username" bash -c '
+    set -e
+    cd /tmp/
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf paru
+'
 echo "paru installed"
 
 # Install AUR packages
