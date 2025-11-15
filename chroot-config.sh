@@ -45,24 +45,6 @@ else
     echo "Multilib repository enabled"
 fi
 
-# Update package database
-pacman -Sy
-
-# Install the desired tools
-echo "Installing essential tools & libraries"
-pacman -S --noconfirm bat starship wget curl wl-clipboard xclip htop git ripgrep bc noto-fonts-cjk noto-fonts-extra lib32-vulkan-radeon
-
-## Configure sudo with pwfeedback
-echo ""
-echo "=== Configuring sudo ==="
-if ! grep -q "^Defaults pwfeedback" /etc/sudoers; then
-    # Use visudo to safely add pwfeedback
-    echo "Defaults pwfeedback" | EDITOR='tee -a' visudo > /dev/null 2>&1
-    echo "Password feedback enabled for sudo"
-else
-    echo "Password feedback already enabled"
-fi
-
 ## Set root password
 echo ""
 echo "=== Setting root password ==="
@@ -77,6 +59,23 @@ useradd -m -G wheel,audio,video,optical,storage -s /usr/bin/fish -c "Rakibul Has
 echo "User $username (Rakibul Hasan Ratul) created with fish as default shell"
 echo "Setting password for $username:"
 passwd "$username"
+
+# Update package database
+pacman -Sy
+
+# Install startup tools
+pacman -S wget curl git bc sudo --noconfirm
+
+## Configure sudo with pwfeedback
+echo ""
+echo "=== Configuring sudo ==="
+if ! grep -q "^Defaults pwfeedback" /etc/sudoers; then
+    # Use visudo to safely add pwfeedback
+    echo "Defaults pwfeedback" | EDITOR='tee -a' visudo > /dev/null 2>&1
+    echo "Password feedback enabled for sudo"
+else
+    echo "Password feedback already enabled"
+fi
 
 # Enable wheel group for sudo
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
@@ -173,13 +172,18 @@ echo "NetworkManager will start on boot"
 echo ""
 echo "=== Installing additional packages ==="
 
+
+# Install the desired tools
+echo "Installing essential tools & libraries"
+pacman -S --noconfirm bat starship wl-clipboard xclip htop ripgrep noto-fonts-cjk noto-fonts-extra lib32-vulkan-radeon ibus-libpinyin
+
 # Install dev tools
 echo "Installing development tools"
 pacman -S --noconfirm base-devel gcc npm pnpm cargo python python-pip uv lazygit tmux
 
 # Install graphical interface
 echo "Installing GNOME desktop environment and applications"
-pacman -S --noconfirm evince file-roller gdm gnome-backgrounds gnome-calculator gnome-characters gnome-control-center gnome-keyring gnome-session gnome-shell gnome-shell-extensions gnome-system-monitor gnome-tweaks gvfs loupe nautilus sushi xdg-desktop-portal-gnome xdg-user-dirs-gtk ptyxis kitty steam
+pacman -S --noconfirm evince gdm gnome-calculator gnome-characters gnome-control-center gnome-keyring gnome-shell gnome-shell-extensions gnome-system-monitor gnome-tweaks gvfs loupe nautilus sushi xdg-desktop-portal-gnome xdg-user-dirs-gtk gnome-browser-connector ptyxis kitty steam
 
 # Install paru (AUR helper - simpler than yay)
 echo ""
@@ -200,14 +204,8 @@ echo "paru installed"
 # Install AUR packages
 echo ""
 echo "=== Installing AUR packages ==="
-echo "Installing Brave browser..."
-sudo -u $username paru -S --noconfirm brave-bin
-
-echo "Installing VS Code..."
-sudo -u $username paru -S --noconfirm visual-studio-code-bin
-
-echo "Installing Open Bangla Keyboard..."
-sudo -u $username paru -S --noconfirm openbangla-keyboard-bin
+echo "Installing AUR packages..."
+sudo -u $username paru -S --noconfirm brave-bin visual-studio-code-bin openbangla-keyboard-bin
 
 # Enable GDM (GNOME Display Manager)
 systemctl enable gdm
