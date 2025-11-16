@@ -183,7 +183,7 @@ pacman -S --noconfirm base-devel gcc npm pnpm cargo python python-pip uv lazygit
 
 # Install graphical interface
 echo "Installing GNOME desktop environment and applications"
-pacman -S --noconfirm evince gdm gnome-calculator gnome-characters gnome-control-center gnome-keyring gnome-shell gnome-shell-extensions gnome-system-monitor gnome-tweaks gvfs loupe nautilus sushi xdg-desktop-portal-gnome xdg-user-dirs-gtk gnome-browser-connector ptyxis kitty steam
+pacman -S --noconfirm gnome-shell gdm gnome-control-center gnome-settings-daemon gnome-keyring nautilus sushi gnome-calculator gnome-browser-connector ptyxis kitty steam
 
 # Install paru (AUR helper - simpler than yay)
 echo ""
