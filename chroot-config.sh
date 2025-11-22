@@ -183,7 +183,7 @@ pacman -S --noconfirm base-devel gcc npm pnpm cargo python python-pip uv lazygit
 
 # Install graphical interface
 echo "Installing GNOME desktop environment and applications"
-pacman -S --noconfirm gnome-shell gdm gnome-control-center gnome-settings-daemon gnome-keyring nautilus sushi gnome-calculator gnome-browser-connector gnome-tweaks loupe  ptyxis kitty steam
+pacman -S --noconfirm gnome-shell gdm gnome-control-center gnome-settings-daemon gnome-keyring nautilus sushi gnome-calculator gnome-browser-connector gnome-tweaks loupe  ptyxis steam gnome-system-monitor celluloid firefox
 
 # Install paru (AUR helper - simpler than yay)
 echo ""
@@ -205,7 +205,7 @@ echo "paru installed"
 echo ""
 echo "=== Installing AUR packages ==="
 echo "Installing AUR packages..."
-sudo -u $username paru -S --noconfirm brave-bin visual-studio-code-bin openbangla-keyboard-bin
+sudo -u $username paru -S --noconfirm brave-bin visual-studio-code-bin openbangla-keyboard-bin ttf-freebanglafont ttf-indic-otf ibus-im-emoji-picker-git ttf-whatsapp-emoji
 
 # Enable GDM (GNOME Display Manager)
 systemctl enable gdm
