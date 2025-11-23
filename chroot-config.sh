@@ -205,7 +205,7 @@ echo "paru installed"
 echo ""
 echo "=== Installing AUR packages ==="
 echo "Installing AUR packages..."
-sudo -u $username paru -S --noconfirm brave-bin visual-studio-code-bin openbangla-keyboard-bin ttf-freebanglafont ttf-indic-otf ibus-im-emoji-picker-git ttf-whatsapp-emoji
+sudo -u $username paru -S --noconfirm brave-bin openbangla-keyboard-bin ttf-freebanglafont ttf-indic-otf ttf-whatsapp-emoji gnome-characters
 
 # Enable GDM (GNOME Display Manager)
 systemctl enable gdm
