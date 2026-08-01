@@ -3,19 +3,20 @@
 ## This script should be run AFTER chroot-ing into the new installation
 ## Usage: arch-chroot /mnt, then run this script
 
-echo "Setting Timezone..."
+echo "Setting Timezone"
 ln -sf /usr/share/zoneinfo/Asia/Dhaka /etc/localtime
 hwclock --systohc
 
-echo "Configuring locale"
+echo "Configuring Locale"
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
-echo "Setting hostname"
+echo "Setting Hostname"
 hostname="archlinux"
 echo "$hostname" > /etc/hostname
 
+echo "Creating Host File"
 # Create hosts file
 cat > /etc/hosts << EOF
 127.0.0.1   localhost
@@ -155,7 +156,7 @@ sudo -u "$username" bash -c '
 echo "paru installed"
 
 echo "Installing softwares"
-sudo -u $username paru -Sy --noconfirm brave-bin openbangla-keyboard-bin ttf-freebanglafont ttf-indic-otf ttf-whatsapp-emoji gnome-characters ttf-firacode-nerd gnome-shell gdm gnome-control-center gnome-settings-daemon gnome-keyring nautilus sushi gnome-calculator gnome-browser-connector gnome-tweaks loupe ghostty steam gnome-system-monitor celluloid firefox pipewire-jack pipewire-pulse starship wl-clipboard xclip ripgrep noto-fonts-cjk noto-fonts-extra ibus-libpinyin gcc npm pnpm cargo python python-pip uv lazygit tmux opencode-bin visual-studio-code-bin antigravity windsurf libreoffice-fresh marktext-bin inkscape
+sudo -u $username paru -Sy --noconfirm brave-bin zen-browser-bin openbangla-keyboard-bin ttf-freebanglafont ttf-indic-otf ttf-whatsapp-emoji gnome-characters ttf-firacode-nerd gnome-shell gdm gnome-control-center gnome-settings-daemon gnome-keyring nautilus sushi gnome-calculator gnome-browser-connector gnome-tweaks loupe ghostty steam gnome-system-monitor celluloid firefox chromium pipewire-jack pipewire-pulse starship wl-clipboard xclip ripgrep noto-fonts-cjk noto-fonts-extra ibus-libpinyin gcc npm pnpm cargo python python-pip uv lazygit herdr-bin opencode-bin visual-studio-code-bin libreoffice-fresh marktext-bin inkscape gimp thunderbird
 
 echo Remove Unwanted Dependencies
 pacman -Rns vim noto-fonts-emoji
@@ -165,7 +166,7 @@ systemctl enable gdm
 
 echo "Creating swapfile"
 mkdir -p /swap
-btrfs filesystem mkswapfile --size 11G --uuid clear /swap/swapfile
+btrfs filesystem mkswapfile --size 4G --uuid clear /swap/swapfile
 chmod 600 /swap/swapfile
 mkswap /swap/swapfile
 swapon /swap/swapfile
