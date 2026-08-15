@@ -33,9 +33,13 @@ else
     echo "Multilib repository enabled"
 fi
 
+echo
+echo
 echo "Setting root password ++"
 passwd
 
+echo
+echo
 echo "Creating user account --"
 username="ratul"
 
