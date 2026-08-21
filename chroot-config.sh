@@ -176,7 +176,11 @@ mkswap /swap/swapfile
 swapon /swap/swapfile
 
 # Add to fstab
-echo "/swap/swapfile none swap defaults 0 0" >> /etc/fstab
+if grep -q "^/swap/swapfile none swap" /etc/fstab; then
+    echo "Swapfile fstab entry already present, skipping"
+else
+    echo "/swap/swapfile none swap defaults 0 0" >> /etc/fstab
+fi
 
 echo
 echo Completed
