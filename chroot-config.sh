@@ -160,7 +160,7 @@ sudo -u "$username" bash -c '
 echo "paru installed"
 
 echo "Installing softwares"
-sudo -u $username paru -Sy --noconfirm brave-bin zen-browser-bin openbangla-keyboard-bin ttf-indic-otf ttf-whatsapp-emoji gnome-characters ttf-jetbrains-mono-nerd gnome-shell gdm gnome-control-center gnome-settings-daemon gnome-keyring nautilus sushi gnome-calculator gnome-browser-connector gnome-tweaks loupe ghostty steam gnome-system-monitor celluloid firefox chromium pipewire-jack pipewire-pulse starship wl-clipboard xclip ripgrep noto-fonts-cjk noto-fonts-extra ibus-libpinyin gcc npm pnpm cargo python python-pip uv lazygit herdr-bin opencode-bin visual-studio-code-bin marktext-bin inkscape gimp thunderbird discord figma-linux droidcam zed dosfstools github-cli less clang rust rust-analyzer --needed
+sudo -u $username paru -Sy --noconfirm brave-bin zen-browser-bin openbangla-keyboard-bin ttf-indic-otf ttf-whatsapp-emoji gnome-characters ttf-jetbrains-mono-nerd gnome-shell gdm gnome-control-center gnome-settings-daemon gnome-keyring nautilus sushi gnome-calculator gnome-browser-connector gnome-tweaks loupe kitty steam gnome-system-monitor celluloid firefox chromium pipewire-jack pipewire-pulse starship wl-clipboard xclip ripgrep noto-fonts-cjk noto-fonts-extra ibus-libpinyin gcc npm pnpm cargo python python-pip uv lazygit herdr-bin opencode-bin visual-studio-code-bin marktext-bin inkscape gimp thunderbird discord figma-linux droidcam zed dosfstools github-cli less clang rust rust-analyzer --needed
 
 echo Remove Unwanted Dependencies
 pacman -Rns vim noto-fonts-emoji --noconfirm
